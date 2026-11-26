@@ -65,6 +65,18 @@ Numa instalação nova, a página abre com um rack vazio.
 | **Arquivo → Exportar versão cliente** | Cópia só para visualização, para entregar ao cliente. Você escolhe se vão fotos, dados de rede, IPs e histórico. Nº de série e observações internas nunca vão. |
 | **Arquivo → CSV** | Exporta e importa equipamentos e conexões em planilha. |
 | **Arquivo → Carregar dados de outro arquivo HTML** | Traz a documentação de um HTML gerado antes. |
+| **Arquivo → Alertas por e-mail** | Avisa a equipe por e-mail quando um equipamento fica fora do ar e quando volta. Veja abaixo. |
+
+## Alertas por e-mail
+
+Em **Arquivo → Alertas por e-mail…** (pede a senha de edição), configure uma conta de envio e os destinatários e clique em **Salvar e enviar e-mail de teste**.
+
+- **Microsoft 365:** `smtp.office365.com`, porta 587, STARTTLS. A caixa de envio precisa ter "SMTP autenticado" liberado no admin do 365.
+- **Gmail:** `smtp.gmail.com`, porta 587, STARTTLS, com uma **senha de app** (não a senha normal da conta).
+
+O e-mail sai quando um equipamento monitorado fica fora do ar além do tempo configurado (padrão: 5 minutos), para uma reinicialização rápida não gerar alarme. Várias quedas próximas vão num e-mail só, e outro e-mail avisa quando o equipamento volta. Para um equipamento que pode desligar sem problema, desmarque **Enviar alerta por e-mail quando cair** na seção **Monitoramento** dele.
+
+A senha do e-mail fica guardada no servidor, criptografada pelo Windows, e nunca aparece de volta na tela.
 
 ## Atualizações
 
@@ -87,6 +99,7 @@ Se a máquina já teve o programa, a instalação aproveita os dados que estiver
 | A página não abre de outra máquina | Teste `http://localhost:8080` no próprio servidor. Se lá funcionar, confira se as duas máquinas estão na mesma rede local: o firewall só libera a rede local. |
 | O selo mostra "Servidor sem resposta" | O serviço parou ou o servidor saiu da rede. Veja `C:\ProgramData\PULNET Rack Monitor\logs\pulnet-rack.log`. |
 | Equipamento sempre fora do ar, mas funcionando | Ele provavelmente não responde a ping. Troque o teste para **Porta TCP**. |
+| O e-mail de teste não chega | Leia a mensagem de erro na própria tela de alertas e confira a pasta de spam. No Microsoft 365, o "SMTP autenticado" precisa estar liberado para a caixa; no Gmail, use senha de app. |
 | Esqueci a senha de edição | No servidor, abra o PowerShell como administrador em `C:\Program Files\PULNET Rack Monitor\` e rode `.\pulnet-rack.exe definir-senha`. |
 | A porta 8080 já está em uso | Rode o instalador de novo e escolha outra porta. |
 
